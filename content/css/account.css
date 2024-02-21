@@ -5,19 +5,28 @@
 }
 .account-bar{
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 /* Input */
-.account-key{
+.input-key{
+    height: 30px;
     width: 400px;
 }
 /* Buttons */
-.meta-mask, .account-open{
+.button-go, .button-mm{
     height: 30px;
-    width: 50px;
+    width: 49px;
 }
-.meta-mask{
-
+.button-mm{
+    background-image: url('../images/Metamask.png');
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
 }
-.account-open{
-
+.button-go{
+    background-image: url('../images/play.png');
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
 }

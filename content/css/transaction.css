@@ -6,15 +6,10 @@
 .receive-bar{
     display: flex;
 }
-.receive-key{
+.receive-bar > .input-key{
     width: 300px;
 }
-.send-value{
+.input-value{
     width: 100px;
 }
-.meta-mask{
 
-}
-.receive-send{
-    width: 50px;
-}

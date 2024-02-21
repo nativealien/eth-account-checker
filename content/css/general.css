@@ -1,4 +1,7 @@
 /* General Css */
+*{
+    box-sizing: border-box;
+}
 
 body{
 
@@ -18,7 +21,7 @@ main{
     flex-direction: column;
 }
 section{
-    border: 2px solid grey;
+    /* border: 2px solid grey; */
 }
 button{
     cursor: pointer;
