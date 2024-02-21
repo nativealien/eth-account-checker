@@ -4,12 +4,18 @@
 
 }
 .account-bar{
-
+    display: flex;
+}
+/* Input */
+.account-key{
+    width: 400px;
+}
+/* Buttons */
+.meta-mask, .account-open{
+    height: 30px;
+    width: 50px;
 }
 .meta-mask{
-
-}
-.account-key{
 
 }
 .account-open{

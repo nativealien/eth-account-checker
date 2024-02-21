@@ -1,14 +1,18 @@
 /* Account-details Css */
 
 .account-details{
-
 }
 .account-info{
-
+    display: flex;
+}
+.account-info > p{
+    padding: 0;
+    padding-left: 15px;
+    margin: 0;
 }
 .send-funds{
 
 }
 .account-balance{
-    
+
 }

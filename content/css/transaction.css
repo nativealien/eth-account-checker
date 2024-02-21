@@ -4,17 +4,17 @@
 
 }
 .receive-bar{
-
+    display: flex;
+}
+.receive-key{
+    width: 300px;
+}
+.send-value{
+    width: 100px;
 }
 .meta-mask{
 
 }
-.receive-key{
-
-}
-.send-value{
-
-}
 .receive-send{
-
+    width: 50px;
 }
