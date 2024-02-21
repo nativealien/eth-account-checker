@@ -1,0 +1,7 @@
+/* Css import */
+
+@import './content/css/general.css';
+@import './content/css/account.css';
+@import './content/css/account-details.css';
+@import './content/css/transaction.css';
+@import './content/css/content.css';

@@ -1,0 +1,19 @@
+/* General Css */
+
+body{
+
+}
+header{
+    width: 500px;
+    margin: auto
+}
+h1{
+    margin: 0;
+    padding: 0;
+}
+main{
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
