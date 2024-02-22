@@ -22,6 +22,10 @@ export default class Dom{
 
     // Handle buttons
     initButtons(){
+        document.addEventListener('click', e => {
+            const accKeys = document.querySelector('.account-bar .div-mm')
+            this.removeChildren(accKeys, '.input-key')
+        })
         const mmBtns = document.querySelectorAll('.button-mm')
         const goBtns = document.querySelectorAll('.button-go')
 
@@ -31,17 +35,36 @@ export default class Dom{
 
     async eventMm(event){
         const parent = event.target.parentNode
+        const inputKey = parent.querySelector(`.input-key`)
+        const target = parent.querySelector(`.div-mm`)
         const keys = await this.wallet.getAccounts()
 
-        keys.forEach( key => {
-            const test = parent.querySelector(`.input-key`).cloneNode(true)
-            test.type = 'submit'
-            test.value = key
-            test.style.cursor = 'pointer'
-            parent.appendChild(test)
-        })
+        this.removeChildren(target, '.input-key')
 
-        console.log(test)
+        keys.forEach( key => {
+            const input = inputKey.cloneNode(true)
+            input.type = 'submit'
+            input.value = key
+            input.style.cursor = 'pointer'
+            this.eventInputMm(input, target)
+            target.appendChild(input)
+        })
+    }
+
+    eventInputMm(input, target){
+        // this.removeChildren(target, '.input-key')
+        input.addEventListener('click', async () => {
+            const balance = await this.wallet.checkBalance(input.value)
+            console.log(balance)
+        })
+    }
+
+    // Tools...
+    removeChildren(parent, className){
+        const children = parent.querySelectorAll(className)
+        children.forEach( child => {
+            parent.removeChild(child)
+        })
     }
 
 }

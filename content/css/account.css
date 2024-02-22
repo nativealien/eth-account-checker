@@ -13,6 +13,13 @@
     height: 30px;
     width: 400px;
 }
+.div-mm{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    position: absolute;
+}
 /* Buttons */
 .button-go, .button-mm{
     height: 30px;
