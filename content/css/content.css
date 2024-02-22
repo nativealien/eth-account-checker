@@ -1,8 +1,10 @@
 /* Content Css */
 
-.content{
+/* .content{
     
-}
+} */
 .content-info{
     padding: 20px;
+
+    background-color: rpg(255, 250, 236)
 }

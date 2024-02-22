@@ -51,8 +51,10 @@ export default class Wallet{
             gasPrice: Number(25000000).toString(16)
         }]
 
-        const blockHex = await ethereum.request({ 
+        const recipe = await this.#eth.request({ 
             method: "eth_blockNumber", 
             params: params });
+        
+        return recipe
     }
 }

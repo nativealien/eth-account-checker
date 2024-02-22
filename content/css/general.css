@@ -4,25 +4,58 @@
 }
 
 body{
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
 
+    background: radial-gradient(circle, rgb(255, 237, 180), rgb(255, 250, 236), rgb(255, 254, 252));
 }
 header{
+    height: 200px;
     width: 500px;
-    margin: auto
+    margin: auto;
+
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    /* background-color: rgb(255, 254, 252); */
 }
 h1{
     margin: 0;
     padding: 0;
+
+    font-family: Sixtyfour,'Courier New', Courier, monospace;
+    color:rgb(18, 90, 161)
 }
 main{
     width: 500px;
-    margin: auto;
+    margin: 0 auto;
+
+    position: relative;
+    z-index: 3;
+
     display: flex;
     flex-direction: column;
-}
-section{
-    /* border: 2px solid grey; */
+    flex-wrap: wrap;
 }
 button{
     cursor: pointer;
+}
+
+#popup{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: -10px;
+    right:0;
+
+    transition: bottom 15s ease;
+
+
+    background-image: url('../images/hot-air.svg');
+    background-size: contain;
 }

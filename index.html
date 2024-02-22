@@ -22,27 +22,22 @@
     <title>Bloxbox</title>
 </head>
 <body>
+    
+    </div>
     <header>
-        <h1>Bloxbox</h1>
-    </header>
-
-    <main>
+        <h1>BlockExplorer</h1>
         <div id="popup-wrap">
             <div id="popup"></div>
         </div>
+    </header>
+
+    <main>
         <section class="account">
             <div class="account-bar">
                 <button class="button-mm"></button>
                 <input type="text" class="input-key" placeholder="Enter public key or connect Metamask">
-                <button class="button-go"></button>
+                <button class="button-go">Check</button>
                 <div class="div-mm"></div>
-            </div>
-        </section>
-
-        <section class="account-details">
-            <div class="account-info">
-                <button class="send-funds">Send Funds</button>
-                <p>Accont balance: <span id="account-balance"></span></p>
             </div>
         </section>
 
@@ -50,15 +45,20 @@
             <div class="receive-bar">
                 <button class="button-mm"></button>
                 <input type="text" class="input-key" placeholder="Enter public key or connect Metamask">
-                <input type="text" class="input-value" placeholder="Amount ETH">
-                <button class="button-go"></button>
+                <input type="text" class="input-value" placeholder="ETH">
+                <button class="button-go">Send</button>
                 <div class="div-mm"></div>
+            </div>
+        </section>
+
+        <section class="account-details">
+            <div class="account-info">
+                <p>Account balance: <span id="account-balance"></span> ETH</p>
             </div>
         </section>
 
         <section class="content">
             <div class="content-info">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, laborum consequuntur velit odit temporibus optio possimus eveniet, accusamus officia facere minima natus doloremque, neque voluptas minus assumenda dolores. Rem, unde?</p>
             </div>
         </section>
     </main>

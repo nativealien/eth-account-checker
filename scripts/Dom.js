@@ -3,16 +3,14 @@ import Wallet from "./Wallet.js"
 
 
 export default class Dom{
-    #accountBar = document.querySelector('.account-bar')
-    #accountDetails = document.querySelector('.account-details')
-    #receiveBar = document.querySelector('.receive-bar')
-    #contentInfo = document.querySelector('.content-info')
+    #account = document.querySelector('.account')
+    #accountDetails = document.querySelector('.account-info')
+    #transaction = document.querySelector('.receive-bar')
+    #content = document.querySelector('.content-info')
 
     constructor(){
         this.explorer = new Explorer()
         this.wallet = new Wallet()
-
-
         this.initDom()
     }
 
@@ -23,8 +21,10 @@ export default class Dom{
     // Handle buttons
     initButtons(){
         document.addEventListener('click', e => {
-            const accKeys = document.querySelector('.account-bar .div-mm')
-            this.removeChildren(accKeys, '.input-key')
+            document.querySelectorAll('.div-mm').forEach( div => {
+                this.removeChildren(div, '.input-key')
+            })
+            this.eventGo()
         })
         const mmBtns = document.querySelectorAll('.button-mm')
         const goBtns = document.querySelectorAll('.button-go')
@@ -46,17 +46,41 @@ export default class Dom{
             input.type = 'submit'
             input.value = key
             input.style.cursor = 'pointer'
-            this.eventInputMm(input, target)
+            this.eventInputMm(parent, input, key, inputKey)
             target.appendChild(input)
         })
     }
 
-    eventInputMm(input, target){
-        // this.removeChildren(target, '.input-key')
+    eventInputMm(parent, input, key, inputKey){
         input.addEventListener('click', async () => {
-            const balance = await this.wallet.checkBalance(input.value)
-            console.log(balance)
+            inputKey.placeholder = key
+            console.log(parent)
+            if(parent === 'account'){
+                const balance = await this.wallet.checkBalance(input.value)
+                this.loggAccount(balance)
+            }
         })
+    }
+
+    eventGo(){
+        const go = document.querySelector('.receive-bar .button-go')
+        go.addEventListener('click', e => {
+            const baloon = document.getElementById('popup')
+            baloon.style.bottom = '200px'
+            // baloon.style.right = '100px'
+            setTimeout(()=>{
+                baloon.style.bottom = '-10px'
+            },30000)
+        })
+    }
+
+    loggAccount(balance){
+        this.#accountDetails.style.top = '35px'
+        this.#transaction.style.top = '33px'
+        console.log(balance)
+        const valueSpan = document.querySelector('#account-balance')
+        valueSpan.textContent = balance
+
     }
 
     // Tools...

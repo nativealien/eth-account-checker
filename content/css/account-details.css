@@ -1,18 +1,34 @@
 /* Account-details Css */
 
 .account-details{
+    position: relative;
+    z-index: 1;
 }
 .account-info{
     display: flex;
+
+    position: relative;
+    top: -30px;
+    transition: top 0.5s ease;
+
+    /* background-color: white; */
 }
 .account-info > p{
+    width: 99%;
     padding: 0;
     padding-left: 15px;
     margin: 0;
+
+    font-size: 1.2rem;
+    /* text-align: center; */
+
+    font-family: 'Courier New', Courier, monospace;
+
+    /* background-color: red; */
 }
 .send-funds{
-
+    height: 30px;
 }
-.account-balance{
+/* .account-balance{
 
-}
+} */

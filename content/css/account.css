@@ -1,17 +1,30 @@
 /* Account Css */
 
 .account{
+    width: 100%;
+    position: relative;
+    z-index: 3;
 
+    background-color: white;
 }
 .account-bar{
+    width: 100%;
+    border: 3px solid rgb(38, 103, 141);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
+    position: absolute;
+    background-color: white;
 }
 /* Input */
 .input-key{
     height: 30px;
-    width: 400px;
+    width: 80%;
+    border: 0;
+
+    background-color: white;
 }
 .div-mm{
     display: flex;
@@ -23,17 +36,20 @@
 /* Buttons */
 .button-go, .button-mm{
     height: 30px;
-    width: 49px;
+    width: 10%;
+    border: 0;
+
+    background-color: rgb(170, 213, 255);
 }
 .button-mm{
     background-image: url('../images/Metamask.png');
     background-repeat: no-repeat;
-    background-size: 45%;
+    background-size: contain;
     background-position: center;
 }
-.button-go{
+/* .button-go{
     background-image: url('../images/play.png');
     background-repeat: no-repeat;
-    background-size: 45%;
+    background-size: 40%;
     background-position: center;
-}
+} */
