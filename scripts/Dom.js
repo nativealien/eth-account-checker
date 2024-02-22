@@ -8,6 +8,9 @@ export default class Dom{
     #transaction = document.querySelector('.receive-bar')
     #content = document.querySelector('.content-info')
 
+    #accKey;
+    #resKey;
+
     constructor(){
         this.explorer = new Explorer()
         this.wallet = new Wallet()
@@ -24,13 +27,12 @@ export default class Dom{
             document.querySelectorAll('.div-mm').forEach( div => {
                 this.removeChildren(div, '.input-key')
             })
-            this.eventGo()
         })
         const mmBtns = document.querySelectorAll('.button-mm')
         const goBtns = document.querySelectorAll('.button-go')
 
-        mmBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventMm(e) } ) })
-        // goBtns.forEach( btn => { btn.addEventListener('click', this.eventMm()) })
+        mmBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventMm(e) })})
+        goBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventGo(e) })} )
     }
 
     async eventMm(event){
@@ -46,32 +48,40 @@ export default class Dom{
             input.type = 'submit'
             input.value = key
             input.style.cursor = 'pointer'
-            this.eventInputMm(parent, input, key, inputKey)
+            input.addEventListener('click', async () => {
+                inputKey.value = key
+            })
             target.appendChild(input)
         })
     }
 
-    eventInputMm(parent, input, key, inputKey){
-        input.addEventListener('click', async () => {
-            inputKey.placeholder = key
-            console.log(parent)
-            if(parent === 'account'){
-                const balance = await this.wallet.checkBalance(input.value)
-                this.loggAccount(balance)
+    async eventGo(e){
+        if(e.target.parentNode.className === 'account-bar'){
+            this.#accKey = e.target.parentNode.querySelector('.input-key').value
+            const balance = await this.wallet.checkBalance(this.#accKey)
+            if(this.#accKey !== '' && balance){
+                console.log('SANT!')
+                const receiveBar = document.querySelector('.receive-bar')
+                receiveBar.style.top = '33px'
+                this.#content.innerHTML = `
+                    <h2>${this.#accKey}</h2>
+                    <p>Account value: ${balance}</p>
+                `
             }
-        })
-    }
-
-    eventGo(){
-        const go = document.querySelector('.receive-bar .button-go')
-        go.addEventListener('click', e => {
-            const baloon = document.getElementById('popup')
-            baloon.style.bottom = '200px'
-            // baloon.style.right = '100px'
-            setTimeout(()=>{
-                baloon.style.bottom = '-10px'
-            },30000)
-        })
+        }else{
+            this.#resKey = e.target.parentNode.querySelector('.input-key').value
+            if(this.#accKey === this.#resKey){
+                console.log('You cant send funds to same key...')
+            }else{
+                const baloon = document.getElementById('popup')
+                if(baloon.style.bottom = '-10px'){
+                    baloon.style.bottom = '200px'
+                }
+                setTimeout(()=>{
+                    baloon.style.bottom = '-10px'
+                },20000)
+            }
+        }
     }
 
     loggAccount(balance){
