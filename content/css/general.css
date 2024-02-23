@@ -3,11 +3,13 @@
 /* Colors
 
 #fee9b8
+#ffc5ae 
 #5f8ce2
-#ffc5ae */
+#2c4e8d */
 
 
 *{
+    /* border: 1px solid black; */
     box-sizing: border-box;
 }
 
@@ -40,10 +42,10 @@ h1{
     bottom: -5px;
 
     font-family: Sixtyfour,'Courier New', Courier, monospace;
-    color:#5f8ce2;
+    color:#2c4e8d;
 }
 main{
-    width: 500px;
+    width: 600px;
     margin: 0 auto;
 
     position: relative;
@@ -54,10 +56,37 @@ main{
     flex-wrap: wrap;
 }
 button{
+    border: 0;
+    /* border-bottom: 1px solid blue; */
     cursor: pointer;
+
+    font-family: 'Courier New', Courier, monospace;
+
+    background-color: #fee9b8;
+}
+button:hover{
+    background-color: #ffc5ae;
 }
 
 /* Header animation */
+
+
+#msg-wrap{
+    position: absolute;
+    /* bottom: 30px; */
+    /* left:220px; */
+    bottom: 40px;
+}
+#guy{
+    height: 100px;
+    width: 100px;
+    background-image: url('../images/guy3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#msg{
+
+}
 
 
 #popup-wrap{

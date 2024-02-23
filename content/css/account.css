@@ -1,30 +1,65 @@
 /* Account Css */
 
 .account{
-    width: 100%;
-    position: relative;
-    z-index: 3;
-
-    background-color: white;
-}
-.account-bar{
+    height: 36px;
     width: 100%;
     border: 3px solid #5f8ce2;
     border-radius: 5px;
+    position: relative;
+    z-index: 3;
+
+    transition: height 0.5s ease;
+}
+.account-bar{
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
-    position: absolute;
+    position: relative;
     background-color: #ffc5ae;
 }
+.value-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    position: absolute;
+    top: 0px;
+    z-index: -1;
+    
+
+    transition: top 0.5s ease;
+}
+.value-bar > p {
+    margin: 0;
+    padding: 0;
+}
+#value{
+    width: 90%;
+    padding-top: 5px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* .button-close{
+    height: 30px;
+    width: 10%;
+    margin: 0;
+    padding: 0;
+} */
+
 /* Input */
 .input-key{
     height: 30px;
     width: 80%;
-    border: 0;
+    border: 0.5px solid #2c4e8d;
 
-    background-color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+
+    background-color: rgba(203, 231, 255, 0.692);
 }
 .div-mm{
     display: flex;
@@ -33,13 +68,14 @@
 
     position: absolute;
 }
+.div-mm > .input-key{
+    border: 1px solid #2c4e8d;
+    margin-bottom: 4px;
+}
 /* Buttons */
-.button-go, .button-mm{
+.button-go, .button-mm, .button-close{
     height: 30px;
     width: 10%;
-    border: 0;
-
-    background-color: #fee9b8;
 }
 .button-mm{
     background-image: url('../images/Metamask.png');
@@ -47,6 +83,8 @@
     background-size: contain;
     background-position: center;
 }
-.button-go{
+.button-go, .button-close{
+    border-left: 2px solid #5f8ce2;
+
     font-family: monospace;
 }

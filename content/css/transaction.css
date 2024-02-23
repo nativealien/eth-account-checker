@@ -5,15 +5,15 @@
     z-index: 2;
 }
 .receive-bar{
-    border: 3px solid #5f8ce2;
-    border-radius: 5px;
-    
+    width: 100%;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 
-    position: relative;
-    top: 0px;
-    
-    background-color: #FDCD60;
+    position: absolute;
+    z-index: -1;
+    top:0px;
+    background-color: #ffc5ae;
 
     transition: top 0.5s ease;
 }

@@ -15,6 +15,16 @@ export default class Explorer{
         // console.log(this.web3)
     }
 
+    async checkBalance(key){
+        try {
+            const balance = await this.web3.eth.getBalance(key)
+            const balanceEth = await this.web3.utils.fromWei(balance, 'ether')
+            return balanceEth
+        } catch (error) {
+            return false
+        }
+    }
+
     async getTotalBlocks(){
         return parseInt(await this.web3.eth.getBlockNumber())
     }

@@ -3,12 +3,16 @@ import Wallet from "./Wallet.js"
 
 
 export default class Dom{
+    
     #account = document.querySelector('.account')
-    #accountDetails = document.querySelector('.account-info')
-    #transaction = document.querySelector('.receive-bar')
-    #content = document.querySelector('.content-info')
+    #valueBar = document.querySelector('.value-bar')
+    #receive = document.querySelector('.receive-bar')
+
+    #value = document.querySelector('#value')
     #msg = document.querySelector('#msg')
 
+    #loggedAcc = false;
+    #keyArr;
     #accKey;
     #resKey;
     #trxHash;
@@ -34,14 +38,22 @@ export default class Dom{
         const goBtns = document.querySelectorAll('.button-go')
 
         mmBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventMm(e) })})
-        goBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventGo(e) })} )
+        goBtns.forEach( btn => { btn.addEventListener('click', e => { this.eventGo(e) })})
+
+        const buttonClose = document.querySelector('.button-close')
+        buttonClose.addEventListener('click', () => {this.loggAccount(false)} )
     }
 
     async eventMm(event){
+        if(!this.wallet.status){
+            
+            event.target.style.backgroundColor = 'red';
+        }
         const parent = event.target.parentNode
         const inputKey = parent.querySelector(`.input-key`)
         const target = parent.querySelector(`.div-mm`)
         const keys = await this.wallet.getAccounts()
+        this.#keyArr = keys
         if(typeof keys === 'object'){
             this.removeChildren(target, '.input-key')
 
@@ -56,7 +68,6 @@ export default class Dom{
                 target.appendChild(input)
             })
         }else{
-            console.log('Something is wrong..')
             this.#msg.textContent = 'You dont seem too have Metamask... '
         }
     }
@@ -66,12 +77,26 @@ export default class Dom{
             this.#accKey = e.target.parentNode.querySelector('.input-key').value
             const balance = await this.wallet.checkBalance(this.#accKey)
             if(typeof balance === 'number'){
-                this.loggAccount(balance)
+                this.#value.textContent = `Account balance: ${balance} ETH`
+                this.loggAccount(false)
+                setTimeout(() => {
+                    this.loggAccount(true)
+                }, 500)
             }else{
-                console.log(balance.message)
+                const newBalance = await this.explorer.checkBalance(this.#accKey)
+                if(newBalance){
+                    this.#value.textContent = newBalance
+                    this.loggAccount(false)
+                    setTimeout(() => {
+                    this.loggAccount(true)
+                }, 500)
+                }else{
+                    this.#msg.textContent = 'Something wrong with that key... '
+                }
             }
         }else{
             this.#resKey = e.target.parentNode.querySelector('.input-key').value
+
             const value = parseFloat(document.querySelector('.input-value').value)
             console.log(value === typeof Number)
             if(this.#accKey === this.#resKey){
@@ -89,6 +114,13 @@ export default class Dom{
         }
     }
 
+    eventClose(){
+        const buttonClose = document.querySelector('.button-close')
+        buttonClose.addEventListener('click', () => {
+            this.loggAccount(false)
+            this.resetInputs()} )
+    }
+
     liftBaloon(){
         const baloon = document.getElementById('popup-wrap')
         const eth = document.querySelector('#eth-div')
@@ -102,15 +134,36 @@ export default class Dom{
             baloon.style.bottom = '-30px'
         },20000)
     }
-
-    loggAccount(balance){
-        console.log(this.wallet.status)
-
-        const receiveBar = document.querySelector('.receive-bar')
-        receiveBar.style.top = '40px'
-        this.#content.innerHTML = `
-            <h2>Account value: ${balance}</h2>
-        `
+    // 0xF7A31Ec08ABE12B9FF4B250e168E3E90d8549Fd3
+    loggAccount(check){
+        console.log(check)
+        if(check){
+            if(this.wallet.status === true && typeof this.#keyArr === 'object'){
+                let test = false;
+                this.#keyArr.forEach( key => {
+                    if(key === this.#accKey){
+                        test = true
+                    }
+                })
+                if(test){
+                    this.#account.style.height = "96px";
+                    this.#valueBar.style.top = '60px';
+                    this.#receive.style.top = '30px';
+                }else{
+                    this.#account.style.height = "66px";
+                    this.#receive.style.top = '0px';
+                    this.#valueBar.style.top = '30px';
+                }
+            }else{
+                this.#account.style.height = "66px";
+                this.#valueBar.style.top = '30px';
+            }
+           
+        }else{
+            this.#account.style.height = "36px";
+            this.#receive.style.top = '0px';
+            this.#valueBar.style.top = '0px';
+        }
     }
 
     // Tools...
@@ -118,6 +171,14 @@ export default class Dom{
         const children = parent.querySelectorAll(className)
         children.forEach( child => {
             parent.removeChild(child)
+        })
+    }
+
+    resetInputs(){
+        const inputs = document.querySelectorAll('input')
+        console.log("HALLÅ!!!!!")
+        inputs.forEach( input => {
+            input.value = ''
         })
     }
 
