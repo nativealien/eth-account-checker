@@ -3,13 +3,75 @@
 /* .content{
     
 } */
+
+#error-msg{
+    height: 90px;
+    width: 320px;
+
+    border-bottom: 2px solid #5f8ce2;
+    border-right: 2px solid #bfd5ff;
+
+    align-self: end;
+
+    display: flex;
+    justify-content: end;
+    align-items: end;
+
+    position: relative;
+    /* right: 70px; */
+
+}
+
+#msg{
+    height: 100px;
+    width: 400px;
+    /* border: 2px solid blue; */
+
+    position: absolute;
+
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#guy{
+    width: 50px;
+    height: 50px;
+
+    position: relative;
+    /* bottom: -5px; */
+
+    background-image: url('../images/guy.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.content{
+    height: 300px;
+    /* border-right: 10px solid #5f8ce2; */
+    /* border-bottom: 2px solid #5f8ce2; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: relative;
+}
+
 .content-info{
+    height: 100%;
+    width: 100%;
+    /* margin: 10px; */
+
     padding: 0px;
     /* border: 2px solid grey; */
 
-    background-color: rpg(255, 250, 236);
+    position: relative;
 
-    font-family: 'Courier New', Courier, monospace;
+    background-color: rpg(255, 250, 236);
+    color: #5f8ce2;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .content-info > h2{

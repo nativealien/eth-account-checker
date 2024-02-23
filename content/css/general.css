@@ -1,4 +1,12 @@
 /* General Css */
+
+/* Colors
+
+#fee9b8
+#5f8ce2
+#ffc5ae */
+
+
 *{
     box-sizing: border-box;
 }
@@ -28,8 +36,11 @@ h1{
     margin: 0;
     padding: 0;
 
+    position: relative;
+    bottom: -5px;
+
     font-family: Sixtyfour,'Courier New', Courier, monospace;
-    color:rgb(18, 90, 161)
+    color:#5f8ce2;
 }
 main{
     width: 500px;
@@ -46,16 +57,43 @@ button{
     cursor: pointer;
 }
 
-#popup{
+/* Header animation */
+
+
+#popup-wrap{
     width: 100px;
-    height: 100px;
-    position: absolute;
-    bottom: -10px;
-    right:0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    bottom: -30px;
 
     transition: bottom 15s ease;
+}
 
+#popup{
+    width: 100px;
+    height: 120px;
 
     background-image: url('../images/hot-air.svg');
     background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#eth-div{
+    height: 40px;
+    width: 30px;
+
+    position: absolute;
+    bottom: -10px;
+    right: 34px;
+
+    display: none;
+
+    background-image: url('../images/eth.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+
 }

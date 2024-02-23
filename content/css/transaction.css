@@ -5,7 +5,7 @@
     z-index: 2;
 }
 .receive-bar{
-    border: 3px solid rgb(29, 75, 134);
+    border: 3px solid #5f8ce2;
     border-radius: 5px;
     
     display: flex;
@@ -13,6 +13,8 @@
     position: relative;
     top: 0px;
     
+    background-color: #FDCD60;
+
     transition: top 0.5s ease;
 }
 

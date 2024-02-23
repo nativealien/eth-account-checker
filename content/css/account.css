@@ -9,14 +9,14 @@
 }
 .account-bar{
     width: 100%;
-    border: 3px solid rgb(38, 103, 141);
+    border: 3px solid #5f8ce2;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
     position: absolute;
-    background-color: white;
+    background-color: #ffc5ae;
 }
 /* Input */
 .input-key{
@@ -39,7 +39,7 @@
     width: 10%;
     border: 0;
 
-    background-color: rgb(170, 213, 255);
+    background-color: #fee9b8;
 }
 .button-mm{
     background-image: url('../images/Metamask.png');
@@ -47,9 +47,6 @@
     background-size: contain;
     background-position: center;
 }
-/* .button-go{
-    background-image: url('../images/play.png');
-    background-repeat: no-repeat;
-    background-size: 40%;
-    background-position: center;
-} */
+.button-go{
+    font-family: monospace;
+}
