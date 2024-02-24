@@ -1,0 +1,46 @@
+/* Value and Receiver Bars Css */
+.value-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    position: absolute;
+    top: 0px;
+    z-index: -1;
+    
+
+    transition: top 0.5s ease;
+}
+.value-bar > p {
+    margin: 0;
+    padding: 0;
+}
+#value{
+    width: 90%;
+    padding-top: 5px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.receive-bar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    position: absolute;
+    z-index: -1;
+    top:0px;
+    background-color: #ffc5ae;
+
+    transition: top 0.5s ease;
+}
+
+.receive-bar > .input-key{
+    width: 65%;
+}
+.input-value{
+    width: 15%;
+}
+

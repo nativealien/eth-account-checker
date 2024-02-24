@@ -44,6 +44,10 @@ h1{
     font-family: Sixtyfour,'Courier New', Courier, monospace;
     color:#2c4e8d;
 }
+#blocks{
+    font-size: 0.5rem;
+}
+
 main{
     width: 600px;
     margin: 0 auto;
@@ -66,63 +70,4 @@ button{
 }
 button:hover{
     background-color: #ffc5ae;
-}
-
-/* Header animation */
-
-
-#msg-wrap{
-    position: absolute;
-    /* bottom: 30px; */
-    /* left:220px; */
-    bottom: 40px;
-}
-#guy{
-    height: 100px;
-    width: 100px;
-    background-image: url('../images/guy3.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-#msg{
-
-}
-
-
-#popup-wrap{
-    width: 100px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    position: relative;
-    bottom: -30px;
-
-    transition: bottom 15s ease;
-}
-
-#popup{
-    width: 100px;
-    height: 120px;
-
-    background-image: url('../images/hot-air.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#eth-div{
-    height: 40px;
-    width: 30px;
-
-    position: absolute;
-    bottom: -10px;
-    right: 34px;
-
-    display: none;
-
-    background-image: url('../images/eth.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-
 }

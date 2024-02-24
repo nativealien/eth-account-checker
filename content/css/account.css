@@ -1,4 +1,5 @@
-/* Account Css */
+/* Account Bar Css */
+/* Some shared buttons and inputs with receiver and value bars */
 
 .account{
     height: 36px;
@@ -19,36 +20,6 @@
     position: relative;
     background-color: #ffc5ae;
 }
-.value-bar{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    position: absolute;
-    top: 0px;
-    z-index: -1;
-    
-
-    transition: top 0.5s ease;
-}
-.value-bar > p {
-    margin: 0;
-    padding: 0;
-}
-#value{
-    width: 90%;
-    padding-top: 5px;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-/* .button-close{
-    height: 30px;
-    width: 10%;
-    margin: 0;
-    padding: 0;
-} */
 
 /* Input */
 .input-key{

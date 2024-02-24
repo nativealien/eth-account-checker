@@ -30,7 +30,7 @@ export default class Wallet{
 
     // Checks balance
     async checkBalance(accountKey){
-
+        console.log(accountKey)
         try {
             const balance = await this.#eth.request({
                 method: 'eth_getBalance',
