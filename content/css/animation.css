@@ -1,12 +1,6 @@
 /* Header animation */
 
 /* Messages about events */
-#msg-wrap{
-    position: absolute;
-    /* bottom: 30px; */
-    /* left:220px; */
-    bottom: 40px;
-}
 #guy{
     height: 100px;
     width: 100px;
@@ -16,11 +10,6 @@
 }
 #msg{
     font-family: 'Courier New', Courier, monospace;
-}
-
-/* For displaying total block count */
-#blocks{
-    font-size: 0.5rem;
 }
 
 /* Baloon animation */

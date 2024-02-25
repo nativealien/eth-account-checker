@@ -1,32 +1,35 @@
 import Explorer from "./Explorer.js";
-import Wallet from "./Wallet.js";
+// import Wallet from "./Wallet.js";
 
 export default class Dom {
-  #account = document.querySelector(".account");
-  #valueBar = document.querySelector(".value-bar");
-  #receive = document.querySelector(".receive-bar");
-
-  #blocks = document.querySelector("#blocks");
-  #value = document.querySelector("#value");
-  #msg = document.querySelector("#msg");
-
-  #keyArr;
+  #keysArr
   #accKey;
   #resKey;
   #trxHash;
 
   constructor() {
-    this.explorer = new Explorer();
-    this.wallet = new Wallet();
+    this.account = document.querySelector(".account");
+    this.valueBar = document.querySelector(".value-bar");
+    this.receive = document.querySelector(".receive-bar");
+
+    this.blocks = document.querySelector("#blocks");
+    this.value = document.querySelector("#value");
+    this.msg = document.querySelector("#msg");
+
+    this.explorer = new Explorer('https://sepolia.infura.io/v3/d5fd8992e2eb410992c4324f20fa3895');
+    // this.wallet = new Wallet();
     this.initDom();
   }
 
-  initDom() {
+  async initDom() {
     document.addEventListener("click", (e) => {
       document.querySelectorAll(".div-mm").forEach((div) => {
         this.removeChildren(div, ".input-key");
       });
     });
+
+    this.blocks.textContent = await this.explorer.getTotalBlocks()
+
     const mmBtns = document.querySelectorAll(".button-mm");
     const goBtns = document.querySelectorAll(".button-go");
 
@@ -48,19 +51,19 @@ export default class Dom {
   }
 
   async eventMm(event) {
-    const keys = await this.wallet.getAccounts();
+    this.#keysArr = await this.explorer.getAccounts();
 
-    if (!this.wallet.status) {
-      this.#msg.textContent = "You dont seem too have Metamask... ";
+    if (!this.explorer.status) {
+      this.msg.textContent = "You dont seem too have Metamask... ";
       event.target.style.backgroundColor = "red";
-    } else if (typeof keys === "object") {
+    } else if (typeof this.#keysArr === "object") {
       const parent = event.target.parentNode;
       const inputKey = parent.querySelector(`.input-key`);
       const target = parent.querySelector(`.div-mm`);
-      const keys = await this.wallet.getAccounts();
+      this.#keysArr = await this.explorer.getAccounts();
       this.removeChildren(target, ".input-key");
 
-      keys.forEach((key) => {
+      this.#keysArr.forEach((key) => {
         const input = inputKey.cloneNode(true);
         input.type = "submit";
         input.value = key;
@@ -71,9 +74,8 @@ export default class Dom {
         target.appendChild(input);
       });
     } else {
-      this.#msg.textContent = "You already have a pending request in Metamask.";
+      this.msg.textContent = "You already have a pending request in Metamask.";
     }
-    this.#keyArr = keys;
   }
 
   async eventGo(e) {
@@ -86,27 +88,27 @@ export default class Dom {
       if (this.#accKey !== false) {
         await this.balanceDisplay();
       } else {
-        this.#msg.textContent = "The key field is empty...";
+        this.msg.textContent = "The key field is empty...";
       }
     } else {
       this.#resKey = e.target.parentNode.querySelector(".input-key").value;
       const value = parseFloat(document.querySelector(".input-value").value);
 
       if (this.#accKey === this.#resKey) {
-        this.#msg.textContent = "You can't send funds to the same key...";
+        this.msg.textContent = "You can't send funds to the same key...";
       } else if (this.#resKey.trim() === "") {
-        this.#msg.textContent =
+        this.msg.textContent =
           "Write a receiving adress in the input field...";
       } else if (!isFinite(value) || value <= 0) {
-        this.#msg.textContent = "You have to put in a valid amount of ETH.";
+        this.msg.textContent = "You have to put in a valid amount of ETH.";
       } else {
-        this.#trxHash = await this.wallet.sendTransaction(
+        this.#trxHash = await this.explorer.sendTransaction(
           this.#accKey,
           this.#resKey,
           value
         );
         if (typeof this.#trxHash === "string") {
-          this.#msg.textContent =
+          this.msg.textContent =
             "Off he goes! Hope the network isn't too busy...";
           this.liftBaloon();
         }
@@ -120,18 +122,18 @@ export default class Dom {
   };
 
   balanceDisplay = async () => {
-    const balance = await this.wallet.checkBalance(this.#accKey);
+    const balance = await this.explorer.balanceAccount(this.#accKey);
     if (typeof balance === "number") {
       // Assuming balance can be truthy for valid cases
-      this.#value.textContent = `Account balance: ${balance} ETH`;
+      this.value.textContent = `Account balance: ${balance} ETH`;
       this.loggInAccountDelay(true);
     } else {
-      const newBalance = await this.explorer.checkBalance(this.#accKey);
+      const newBalance = await this.explorer.balanceExplore(this.#accKey);
       if (isFinite(newBalance) && newBalance !== false) {
-        this.#value.textContent = `Account balance: ${newBalance} ETH`;
+        this.value.textContent = `Account balance: ${newBalance} ETH`;
         this.loggInAccountDelay(true);
       } else {
-        this.#msg.textContent = "Something wrong with that key...";
+        this.msg.textContent = "Something wrong with that key...";
       }
     }
   };
@@ -152,7 +154,7 @@ export default class Dom {
       baloon.style.bottom = "250px";
     }
     setTimeout(() => {
-      this.#msg.textContent =
+      this.msg.textContent =
         "Hey! Hes comming back now, thats got to be a good sign...";
       eth.style.display = "none";
       baloon.style.bottom = "-30px";
@@ -165,8 +167,8 @@ export default class Dom {
     let valueBarTop = "0px";
 
     if (check) {
-      if (this.wallet.status && Array.isArray(this.#keyArr)) {
-        if (this.#keyArr.includes(this.#accKey)) {
+      if (this.explorer.status && Array.isArray(this.#keysArr)) {
+        if (this.#keysArr.includes(this.#accKey)) {
           accountHeight = "96px";
           valueBarTop = "60px";
           receiveTop = "30px";
@@ -180,9 +182,9 @@ export default class Dom {
         valueBarTop = "30px";
       }
     }
-    this.#account.style.height = accountHeight;
-    this.#receive.style.top = receiveTop;
-    this.#valueBar.style.top = valueBarTop;
+    this.account.style.height = accountHeight;
+    this.receive.style.top = receiveTop;
+    this.valueBar.style.top = valueBarTop;
   }
 
   // Tools...
