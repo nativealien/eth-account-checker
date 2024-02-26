@@ -1,3 +1,4 @@
+import { Account, Balance, Transaction } from "./transactions.js"
 
 
 export default class Explorer extends Web3{
@@ -42,9 +43,8 @@ export default class Explorer extends Web3{
      async getAccounts(){
         if(this.status){
             try {
-                const accounts = await this.ether.request({
-                    method: 'eth_requestAccounts'
-                })
+                const acc = new Account()
+                const accounts = await this.ether.request(acc.result)
                 console.log(typeof accounts)
                 return accounts
             } catch (error) {
@@ -57,13 +57,8 @@ export default class Explorer extends Web3{
     async balanceAccount(accountKey){
         console.log(accountKey)
         try {
-            const balance = await this.ether.request({
-                method: 'eth_getBalance',
-                params: [
-                    accountKey,
-                    'latest'
-                ]
-            })
+            const bal = new Balance(accountKey, 'latest')
+            const balance = await this.ether.request(bal.result)
             const parsedBalance = parseInt(balance) / Math.pow(10, 18)
             return parsedBalance
         } catch (error) {
@@ -74,17 +69,18 @@ export default class Explorer extends Web3{
     // Sends a transaction...
     async sendTransaction(sender, reciever, amount){
         try {
-            const params = [{
-                from: sender,
-                to: reciever,
-                value: (amount * 1e18).toString(16),
-                gas: Number(21000).toString(16),
-                gasPrice: Number(25000000).toString(16)
-            }]
-            const recipe = await this.ether.request({ 
-                // method: "eth_blockNumber", 
-                method: 'eth_sendTransaction',
-                params: params });
+            const trx = new Transaction(sender, reciever, amount)
+            // const params = [{
+            //     from: sender,
+            //     to: reciever,
+            //     value: (amount * 1e18).toString(16),
+            //     gas: Number(21000).toString(16),
+            //     gasPrice: Number(25000000).toString(16)
+            // }]
+            // const recipe = await this.ether.request({ 
+            //     method: 'eth_sendTransaction',
+            //     params: params });
+            const recipe = await this.ether.request(trx.result);
             
             return recipe
         } catch (error) {
