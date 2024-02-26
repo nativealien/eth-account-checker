@@ -25,15 +25,11 @@ export default class Explorer extends Web3{
     }
 
     async balanceExplore(key){
-        console.log('CHECK INIT')
         try {
-            console.log('CHECK TRY')
             const balance = await this.eth.getBalance(key)
-            console.log(balance)
             const balanceEth = await this.utils.fromWei(balance, 'ether')
             return balanceEth
         } catch (error) {
-            console.log('CHECK CATCH')
             return false
         }
     }
@@ -45,7 +41,6 @@ export default class Explorer extends Web3{
             try {
                 const acc = new Account()
                 const accounts = await this.ether.request(acc.result)
-                console.log(typeof accounts)
                 return accounts
             } catch (error) {
                 return false
@@ -70,18 +65,7 @@ export default class Explorer extends Web3{
     async sendTransaction(sender, reciever, amount){
         try {
             const trx = new Transaction(sender, reciever, amount)
-            // const params = [{
-            //     from: sender,
-            //     to: reciever,
-            //     value: (amount * 1e18).toString(16),
-            //     gas: Number(21000).toString(16),
-            //     gasPrice: Number(25000000).toString(16)
-            // }]
-            // const recipe = await this.ether.request({ 
-            //     method: 'eth_sendTransaction',
-            //     params: params });
             const recipe = await this.ether.request(trx.result);
-            
             return recipe
         } catch (error) {
             return error

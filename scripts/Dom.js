@@ -17,7 +17,6 @@ export default class Dom {
     this.msg = document.querySelector("#msg");
 
     this.explorer = new Explorer('https://sepolia.infura.io/v3/d5fd8992e2eb410992c4324f20fa3895');
-    // this.wallet = new Wallet();
     this.initDom();
   }
 
@@ -44,10 +43,7 @@ export default class Dom {
       });
     });
 
-    const buttonClose = document.querySelector(".button-close");
-    buttonClose.addEventListener("click", () => {
-      this.loggAccount(false);
-    });
+    this.eventClose()
   }
 
   async eventMm(event) {
@@ -57,6 +53,7 @@ export default class Dom {
       this.msg.textContent = "You dont seem too have Metamask... ";
       event.target.style.backgroundColor = "red";
     } else if (typeof this.#keysArr === "object") {
+      this.msg.textContent = "Grate, you have Metamask! ";
       const parent = event.target.parentNode;
       const inputKey = parent.querySelector(`.input-key`);
       const target = parent.querySelector(`.div-mm`);
@@ -84,7 +81,6 @@ export default class Dom {
         e.target.parentNode.querySelector(".input-key").value !== ""
           ? e.target.parentNode.querySelector(".input-key").value
           : false;
-      console.log(this.#accKey);
       if (this.#accKey !== false) {
         await this.balanceDisplay();
       } else {
@@ -124,7 +120,6 @@ export default class Dom {
   balanceDisplay = async () => {
     const balance = await this.explorer.balanceAccount(this.#accKey);
     if (typeof balance === "number") {
-      // Assuming balance can be truthy for valid cases
       this.value.textContent = `Account balance: ${balance} ETH`;
       this.loggInAccountDelay(true);
     } else {
@@ -141,6 +136,7 @@ export default class Dom {
   eventClose() {
     const buttonClose = document.querySelector(".button-close");
     buttonClose.addEventListener("click", () => {
+      this.msg.textContent = "Closing account, feel free to enter a new key! Doesnt have to be with Metamask.";
       this.loggAccount(false);
       this.resetInputs();
     });
@@ -169,10 +165,12 @@ export default class Dom {
     if (check) {
       if (this.explorer.status && Array.isArray(this.#keysArr)) {
         if (this.#keysArr.includes(this.#accKey)) {
+          this.msg.textContent = "Account loaded with Metamask. You can send transactions. ";
           accountHeight = "96px";
           valueBarTop = "60px";
           receiveTop = "30px";
         } else {
+          this.msg.textContent = "Account loaded without Metamask. No transactions can be made. ";
           accountHeight = "66px";
           receiveTop = "0px";
           valueBarTop = "30px";
@@ -197,7 +195,6 @@ export default class Dom {
 
   resetInputs() {
     const inputs = document.querySelectorAll("input");
-    console.log("HALLÅ!!!!!");
     inputs.forEach((input) => {
       input.value = "";
     });
